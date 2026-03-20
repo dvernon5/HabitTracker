@@ -30,6 +30,7 @@ habitRouter.post("/", async (req, res) => {
 });
 
 habitRouter.put("/:id", async (req, res) => {
+    const prisma = req.app.locals.prisma;
     const { streak, longestStreak } = req.body;
     if (streak === undefined || streak === null) { 
             return res.status(400).json({ message: "Streak is not found" }); 
