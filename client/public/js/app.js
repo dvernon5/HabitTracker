@@ -13,6 +13,8 @@ async function createDialog() {
     dialog.setAttribute("id", "habitDialog");
     dialog = createForm(dialog);
     document.body.appendChild(dialog);
+    const form = document.getElementById("habitForm");
+    submitForm(form);
     
     return dialog;
 }
@@ -32,4 +34,65 @@ function createForm(dialog) {
     `;
 
     return dialog;
+}
+
+function submitForm(form) {
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        disableAddHabitButton(submitBtn);
+        const name = getHabitName(); // Trim removes all leading and trailing whitespaces
+        await createHabit(name, submitBtn, originalText);
+        resetForm(form);
+        closeDialog();
+    });
+}
+
+function disableAddHabitButton(submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Adding..."
+
+    return submitBtn;
+}
+
+function getHabitName() {
+    return document.getElementById("name").value.trim();
+}
+
+async function createHabit(name, submitBtn, originalText) {
+    try {
+        // Make a POST request to store data in the database.
+        const response = await fetch("/habits", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: name }),
+        });
+
+        // Check if Server Status Response is a success.
+        if (!response.ok) throw Error("Bad request to create habit");
+
+        // Status code was a success. Recieved JSON data.
+        const habitData = await response.json();
+        console.log(habitData);
+    } catch(error) {
+        console.error("Cannot create request", error.message);
+    } finally {
+        enableAddHabitButton(submitBtn);
+        submitBtn.textContent = originalText;
+    }
+
+    //listHabits();    // future feature: Render the webpage with list of habits after submission.
+}
+
+function enableAddHabitButton(submitBtn) {
+    submitBtn.disabled = false;
+}
+
+function resetForm(form) {
+    form.reset;  
+}
+
+function closeDialog() {
+    dialog.close();
 }
