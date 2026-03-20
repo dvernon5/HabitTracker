@@ -14,6 +14,7 @@ habitRouter.get("/", async (req, res) => {
 });
 
 habitRouter.post("/", async (req, res) => {
+    const prisma = req.app.locals.prisma;
     const { name } = req.body;
     if (!name) {
         return res.status(400).json({ message: "Please enter habit activity." });
