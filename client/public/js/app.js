@@ -14,7 +14,7 @@ async function createDialog() {
     dialog = buildForm(dialog);
     document.body.appendChild(dialog);
 
-    const form = document.getElementById("habitForm");
+    const form = document.getElementById("habit-form");
     attachFormSubmitListener(form, dialog);
 
     const cancelBtn = document.querySelector('.cancel-btn');
@@ -25,7 +25,7 @@ async function createDialog() {
 
 function buildForm(dialog) {
     dialog.innerHTML = `
-        <form id="habitForm" method="dialog">
+        <form id="habit-form" method="dialog">
             <label for="name">
                 Habit Name:
                 <input type="text" id="name" name="name" require>
