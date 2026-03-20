@@ -1,10 +1,10 @@
 /**
- * @brief Creates a dialog form to collect habit information from the user
+ * @brief Creates a dialog form to collect habit information from the user.
  *
  * Builds and appends a dialog element to the DOM.
  * Attaches form submission and cancel event listeners.
- * 
- * @returns { HTMLDialogElement } The created dialog element
+ *
+ * @returns {HTMLDialogElement} The created dialog element
  */
 async function createDialog() {
     let dialog = document.createElement('dialog');
@@ -80,6 +80,16 @@ async function createHabit(name, form, dialog) {
         errorMessage.textContent = "Unable to submit form. Please try again."
     } 
 }
+
+// Initialize New Habit button and attach click event to open dialog
+const newHabitBtn = document.querySelector(".trigger-modal");
+let dialog = null;
+newHabitBtn.addEventListener("click", async () => {
+    if (!dialog) {
+        dialog = await createDialog();
+    }
+    dialog.showModal();
+});
 
 
 
