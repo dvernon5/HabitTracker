@@ -57,7 +57,7 @@ function attachFormSubmitListener(form, dialog) {
     });
 }
 
-async function createHabit(name, submitBtn, originalText) {
+async function createHabit(name, form, dialog) {
     try {
         // Make a POST request to store data in the database.
         const response = await fetch("/habits", {
@@ -72,14 +72,13 @@ async function createHabit(name, submitBtn, originalText) {
         // Status code was a success. Recieved JSON data.
         const habitData = await response.json();
         console.log(habitData);
+        form.reset();
+        dialog.close();
+         //listHabits();    // future feature: Render the webpage with list of habits after submission.
     } catch(error) {
-        console.error("Cannot create request", error.message);
-    } finally {
-        enableAddHabitButton(submitBtn);
-        submitBtn.textContent = originalText;
-    }
-
-    //listHabits();    // future feature: Render the webpage with list of habits after submission.
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "Unable to submit form. Please try again."
+    } 
 }
 
 function enableAddHabitButton(submitBtn) {
