@@ -27,7 +27,7 @@ habitRouter.post("/", async (req, res) => {
     }
 });
 
-habitRouter.put("/habits/:id", async (req, res) => {
+habitRouter.put("/:id", async (req, res) => {
     const { streak, longestStreak } = req.body;
     if (streak === undefined || streak === null) { 
             return res.status(400).json({ message: "Streak is not found" }); 
