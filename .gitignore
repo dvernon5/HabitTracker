@@ -1,0 +1,16 @@
+# Dependencies
+**/node_modules
+
+# Environment Variables
+server/.env
+
+# Database
+server/prisma/dev.db
+server/prisma/dev.db-journal
+
+# Prisma generated client
+server/generated/prisma
+
+# OS files
+.DS_Store
+Thumbs.db
