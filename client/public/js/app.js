@@ -13,7 +13,9 @@ async function listHabits() {
     const container = document.getElementById("habit-container");
     
     // Generate skeleton cards based on last know count.
-    container.innerHTML = createSkeletonCard.repeat(lastHabitCard);
+    container.innerHTML = createSkeletonCard().repeat(lastHabitCard);
+    const habits = await fetchHabits();
+    if (!habits) return; // stop execution if fetch failed.
 }
 
 function createSkeletonCard() {
@@ -26,6 +28,19 @@ function createSkeletonCard() {
             <button class="skeleton skeleton-btn"></button>
         </di>
     `
+}
+
+async function fetchHabits() {
+    try {
+        const response = await fetch("/habits");
+        if (!response.ok) throw Error("Bad request to fetch habits");
+        const habits = await response.json();
+        console.log(habits);
+        return habits;
+    } catch (error) {
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = error.message;
+    }
 }
 
 
@@ -109,7 +124,7 @@ async function createHabit(name, form, dialog) {
         listHabits();    // future feature: Render the webpage with list of habits after submission.
     } catch(error) {
         const errorMessage = document.getElementById("error-message");
-        errorMessage.textContent = "Unable to submit form. Please try again."
+        errorMessage.textContent = error.message;
     } 
 }
 
