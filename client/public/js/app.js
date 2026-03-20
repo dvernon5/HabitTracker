@@ -18,7 +18,9 @@ async function createDialog() {
     attachFormSubmitListener(form, dialog);
 
     const cancelBtn = document.querySelector('.cancel-btn');
-    cancelFormButton(cancelBtn);
+    cancelBtn.addEventListener("click", () => {
+        dialog.close();
+    });
     
     return dialog;
 }
