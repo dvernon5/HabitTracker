@@ -2,6 +2,7 @@ const { Router } = require("express");
 const habitRouter = Router();
 
 habitRouter.get("/", async (req, res) => {
+    const prisma = req.app.locals.prisma;
     try {
         const habits = await prisma.habit.findMany({
             include: { checkIns: true, },
@@ -55,7 +56,7 @@ habitRouter.put("/:id", async (req, res) => {
     }
 });
 
-habitRouter.delete("/habits/:id", async (req, res) => {
+habitRouter.delete("/:id", async (req, res) => {
     // Convert ID string into number
     const habitId = parseInt(req.params.id);
     if (!habitId) {
