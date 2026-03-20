@@ -15,6 +15,8 @@ async function createDialog() {
     document.body.appendChild(dialog);
     const form = document.getElementById("habitForm");
     submitForm(form);
+    const cancelBtn = document.querySelector('.cancel-btn');
+    cancelFormButton(cancelBtn);
     
     return dialog;
 }
@@ -95,4 +97,10 @@ function resetForm(form) {
 
 function closeDialog() {
     dialog.close();
+}
+
+function cancelFormButton(cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+        dialog.close();
+    });
 }
