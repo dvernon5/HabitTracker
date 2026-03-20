@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const habitRouter = Router();
 
-habitRouter.get("/habits", async (req, res) => {
+habitRouter.get("/", async (req, res) => {
     try {
         const habits = await prisma.habit.findMany({
             include: { checkIns: true, },
