@@ -59,6 +59,7 @@ habitRouter.put("/:id", async (req, res) => {
 });
 
 habitRouter.delete("/:id", async (req, res) => {
+    const prisma = req.app.locals.prisma;
     // Convert ID string into number
     const habitId = parseInt(req.params.id);
     if (!habitId) {
