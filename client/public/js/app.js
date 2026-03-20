@@ -11,7 +11,7 @@
 async function createDialog() {
     let dialog = document.createElement('dialog');
     dialog.setAttribute("id", "habitDialog");
-    dialog = createForm(dialog);
+    dialog = buildForm(dialog);
     document.body.appendChild(dialog);
     const form = document.getElementById("habitForm");
     submitForm(form);
@@ -21,7 +21,7 @@ async function createDialog() {
     return dialog;
 }
 
-function createForm(dialog) {
+function buildForm(dialog) {
     dialog.innerHTML = `
         <form id="habitForm" method="dialog">
             <label for="name">
