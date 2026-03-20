@@ -1,4 +1,36 @@
 /**
+ * @brief Update Homepage with updated information.
+ *
+ * This function fetches a list of habits from the database.
+ * Render homepage with habits details.
+ * Create a toggle button to mark each habits as complete or incomplete
+ * Create a button to remove a selected habit.
+ *
+ * 
+ */
+let lastHabitCard = 3; // Default to 3 on first load
+async function listHabits() {
+    const container = document.getElementById("habit-container");
+    
+    // Generate skeleton cards based on last know count.
+    container.innerHTML = createSkeletonCard.repeat(lastHabitCard);
+}
+
+function createSkeletonCard() {
+    return `
+        <div skeletonCard>
+            <h3 class="skeleton skeleton-title"></h3>
+            <p class="skeleton skeleton-text"></p>
+            <p class="skeleton skeleton-text"></p>
+            <button class="skeleton skeleton-btn">
+            <button class="skeleton skeleton-btn"></button>
+        </di>
+    `
+}
+
+
+
+/**
  * @brief Creates a dialog form to collect habit information from the user.
  *
  * Builds and appends a dialog element to the DOM.
@@ -28,7 +60,7 @@ function buildForm(dialog) {
         <form id="habit-form" method="dialog">
             <label for="name">
                 Habit Name:
-                <input type="text" id="name" name="name" require>
+                <input type="text" id="name" name="name" required>
             </label>
             <div class="form-button-control">
                 <button type="submit">Add Habit</button>
@@ -74,7 +106,7 @@ async function createHabit(name, form, dialog) {
         console.log(habitData);
         form.reset();
         dialog.close();
-         //listHabits();    // future feature: Render the webpage with list of habits after submission.
+        listHabits();    // future feature: Render the webpage with list of habits after submission.
     } catch(error) {
         const errorMessage = document.getElementById("error-message");
         errorMessage.textContent = "Unable to submit form. Please try again."
