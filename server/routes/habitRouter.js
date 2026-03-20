@@ -70,3 +70,5 @@ habitRouter.delete("/habits/:id", async (req, res) => {
         res.status(500).json({ message: "Wasn't able to delete habit.", error: err.message });
     }
 });
+
+module.exports = habitRouter;
