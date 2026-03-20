@@ -1,12 +1,10 @@
-/* ------------------------------------------------------------------------------------
- * FUNCTION NAME: createDialog
- * ------------------------------------------------------------------------------------
- * @brief Create a dialog form to collect user information
+/**
+ * @brief Creates a dialog form to collect habit information from the user
  *
- * This function makes a POST request to the server based on user form information.
- * Render the homepage with newly created habits before form submission
- * Safely reset the form and close the dialog before form submission
- * ------------------------------------------------------------------------------------
+ * Builds and appends a dialog element to the DOM.
+ * Attaches form submission and cancel event listeners.
+ * 
+ * @returns { HTMLDialogElement } The created dialog element
  */
 async function createDialog() {
     let dialog = document.createElement('dialog');
@@ -82,4 +80,7 @@ async function createHabit(name, form, dialog) {
         errorMessage.textContent = "Unable to submit form. Please try again."
     } 
 }
+
+
+
 
