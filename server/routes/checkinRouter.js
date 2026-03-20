@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const checkinRouter = Router();
 
-checkinRouter.post("/checkins", async (req, res) => {
+checkinRouter.post("/", async (req, res) => {
     const { habitId, completedDate } = req.body;
     if (!habitId || isNaN(habitId)) {
         return res.status(400).json({ message: "Bad index request" });
