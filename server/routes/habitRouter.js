@@ -12,7 +12,7 @@ habitRouter.get("/", async (req, res) => {
     }
 });
 
-habitRouter.post("/habits", async (req, res) => {
+habitRouter.post("/", async (req, res) => {
     const { name } = req.body;
     if (!name) {
         return res.status(400).json({ message: "Please enter habit activity." });
