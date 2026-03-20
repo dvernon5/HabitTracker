@@ -2,6 +2,7 @@ const { Router } = require("express");
 const checkinRouter = Router();
 
 checkinRouter.post("/", async (req, res) => {
+    const prisma = req.app.locals.prisma;
     const { habitId, completedDate } = req.body;
     if (!habitId || isNaN(habitId)) {
         return res.status(400).json({ message: "Bad index request" });
