@@ -13,8 +13,10 @@ async function createDialog() {
     dialog.setAttribute("id", "habitDialog");
     dialog = buildForm(dialog);
     document.body.appendChild(dialog);
+
     const form = document.getElementById("habitForm");
-    submitForm(form);
+    attachFormSubmitListener(form, dialog);
+
     const cancelBtn = document.querySelector('.cancel-btn');
     cancelFormButton(cancelBtn);
     
@@ -38,28 +40,21 @@ function buildForm(dialog) {
     return dialog;
 }
 
-function submitForm(form) {
+function attachFormSubmitListener(form, dialog) {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
+
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        disableAddHabitButton(submitBtn);
-        const name = getHabitName(); // Trim removes all leading and trailing whitespaces
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Adding...";
+
+        const name = document.getElementById("name").value.trim();
         await createHabit(name, submitBtn, originalText);
-        resetForm(form);
-        closeDialog();
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     });
-}
-
-function disableAddHabitButton(submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Adding..."
-
-    return submitBtn;
-}
-
-function getHabitName() {
-    return document.getElementById("name").value.trim();
 }
 
 async function createHabit(name, submitBtn, originalText) {
