@@ -45,7 +45,7 @@ checkinRouter.post("/", async (req, res) => {
     }
 });
 
-checkinRouter.delete("/checkins/:id", async (req, res) => {
+checkinRouter.delete("/:id", async (req, res) => {
     const habitId = parseInt(req.params.id);
     if (!habitId) return res.status(400).json({ message: "Index does not exist" });
     try {
