@@ -83,20 +83,3 @@ async function createHabit(name, form, dialog) {
     } 
 }
 
-function enableAddHabitButton(submitBtn) {
-    submitBtn.disabled = false;
-}
-
-function resetForm(form) {
-    form.reset();  
-}
-
-function closeDialog() {
-    dialog.close();
-}
-
-function cancelFormButton(cancelBtn) {
-    cancelBtn.addEventListener('click', () => {
-        dialog.close();
-    });
-}
