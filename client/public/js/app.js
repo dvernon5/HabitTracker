@@ -10,7 +10,7 @@
  */
 async function createDialog() {
     let dialog = document.createElement('dialog');
-    dialog.setAttribute("id", "habitDialog");
+    dialog.setAttribute("id", "habit-dialog");
     dialog = buildForm(dialog);
     document.body.appendChild(dialog);
 
