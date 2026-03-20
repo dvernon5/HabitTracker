@@ -64,3 +64,5 @@ checkinRouter.delete("/checkins/:id", async (req, res) => {
         res.status(500).json({message: "Wasn't able to delete checkin", error: err.message })
     }
 });
+
+module.exports = checkinRouter;
