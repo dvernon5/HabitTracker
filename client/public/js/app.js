@@ -92,7 +92,7 @@ function enableAddHabitButton(submitBtn) {
 }
 
 function resetForm(form) {
-    form.reset;  
+    form.reset();  
 }
 
 function closeDialog() {
