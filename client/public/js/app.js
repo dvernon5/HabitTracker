@@ -148,7 +148,7 @@ function attachRemoveListener() {
  * Builds and appends a dialog element to the DOM.
  * Attaches form submission and cancel event listeners.
  *
- * @returns {HTMLDialogElement} The created dialog element
+ * @returns { HTMLDialogElement } The created dialog element
  */
 async function createDialog() {
     let dialog = document.createElement('dialog');
@@ -167,6 +167,14 @@ async function createDialog() {
     return dialog;
 }
 
+/**
+ * @brief Builds the inner HTML form structure for the dialog.
+ * 
+ * Injects a habit name input field and action buttons into the dialog.
+ * 
+ * @param { HTMLDialogElement } dialog - The dialong element to inject form into
+ * @return { HTMLDialogElement } The dialog element with form injected.
+ */
 function buildForm(dialog) {
     dialog.innerHTML = `
         <form id="habit-form" method="dialog">
@@ -201,6 +209,14 @@ function attachFormSubmitListener(form, dialog) {
     });
 }
 
+/**
+ * @brief Make a POST request to store data into DB
+ * 
+ * 
+ * @param {*} name 
+ * @param {*} form 
+ * @param {*} dialog 
+ */
 async function createHabit(name, form, dialog) {
     try {
         // Make a POST request to store data in the database.
