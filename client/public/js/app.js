@@ -2,11 +2,9 @@
  * @brief Update Homepage with updated information.
  *
  * This function fetches a list of habits from the database.
- * Render homepage with habits details.
- * Create a toggle button to mark each habits as complete or incomplete
- * Create a button to remove a selected habit.
- *
- * 
+ * Renders homepage with habit details.
+ * Creates a toggle button to mark each habit as complete or incomplete.
+ * Creates a button to remove a selected habit.
  */
 let lastHabitCard = 3; // Default to 3 on first load
 async function listHabits() {
@@ -15,19 +13,32 @@ async function listHabits() {
     // Generate skeleton cards based on last know count.
     container.innerHTML = createSkeletonCard().repeat(lastHabitCard);
     const habits = await fetchHabits();
-    if (!habits) return; // stop execution if fetch failed.
+    if (!habits) return; // Stop execution if fetch failed
+
+    // Update skeleton count for next page load.
+    lastHabitCard = habits.length || 3;
+
+    // Clear any previous error message and cards
+    document.getElementById("error-message").textContent = '';
+    container.innerHTML = '';
+
+    // If no habit exist let the user know
+    if (habits.length === 0) {
+        container.innerHTML = '<p class="empty-state">No Habits yet. Add one above!</p>';
+        return;
+    }
 }
 
 function createSkeletonCard() {
     return `
-        <div skeletonCard>
+        <div class="skeleton-card">
             <h3 class="skeleton skeleton-title"></h3>
             <p class="skeleton skeleton-text"></p>
             <p class="skeleton skeleton-text"></p>
-            <button class="skeleton skeleton-btn">
             <button class="skeleton skeleton-btn"></button>
-        </di>
-    `
+            <button class="skeleton skeleton-btn"></button>
+        </div>
+    `;
 }
 
 async function fetchHabits() {
@@ -41,6 +52,39 @@ async function fetchHabits() {
         const errorMessage = document.getElementById("error-message");
         errorMessage.textContent = error.message;
     }
+}
+
+function createHabitCards(habits, container) {
+    habits.forEach(habit => {
+        const todayCheckIn = habit.checkIns.find(checkin => {
+            const todayDate = new Date()
+            todayDate.setHours(0, 0, 0, 0)
+
+            const completedDate = new Date(checkin.completedDate)
+            completedDate.setHours(0, 0, 0, 0);
+
+            // If condition is true habit that already been completed.
+            // Otherwise habit hasn't been completed yet. 
+            return completedDate.toDateString() === todayDate.toDateString();
+        });
+        const habitCard = document.createElement("div");
+        habitCard.addClassList.add("habit-card");
+        habitCard.setAttribute("data-id", habit.id);
+        habitCard.innerHTML = `
+            <h3>${ habit.name }</h3>
+            <p>Streak: ${ habit.streak }</p>
+            <p>Longest Streak: ${ habit.longestStreak }</p>
+            <div class="card-btn-control">
+                <button class="toggle-checkin"
+                        data-id="${ habit.id }"
+                        data-checkin-id="${ todayCheckIn ? todayCheckIn.id : '' }">
+                    ${ todayCheckIn ? "Checked In" : "Done Today" }
+                </button>
+                <button class="remove-btn" data-id="${ habit.id }">Remove Habit</button>
+            </div>
+        `;
+        container.appendChild(habitCard);
+    });
 }
 
 
