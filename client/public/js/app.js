@@ -220,12 +220,15 @@ function attachFormSubmitListener(form, dialog) {
 }
 
 /**
- * @brief Make a POST request to store data into DB
+ * @brief Make a POST request to create a new habit in the database
  * 
+ * Sends habit name to the server and resets the form on success.
+ * Closes the dialog and re-renders the habit list after successful creation.
+ * Displays an error message if the request fails.
  * 
- * @param {*} name 
- * @param {*} form 
- * @param {*} dialog 
+ * @param { string } name - The name of the habit to create.
+ * @param { HTMLFormElement } form - The form eleemnt to reset after submission.
+ * @param { HTMLDialogElement } dialog - The dialog element to close after submission.
  */
 async function createHabit(name, form, dialog) {
     try {
