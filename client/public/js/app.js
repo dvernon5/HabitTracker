@@ -41,6 +41,14 @@ function createSkeletonCard() {
     `;
 }
 
+/**
+ * @brief fetch all habits from the database
+ *
+ * Make a GET request to retrieve all habits for the current user.
+ * 
+ * @return (Array) Array of habit objects or undefined if fetch failed.
+ */
+
 async function fetchHabits() {
     try {
         const response = await fetch("/habits");
@@ -86,8 +94,6 @@ function createHabitCards(habits, container) {
         container.appendChild(habitCard);
     });
 }
-
-
 
 /**
  * @brief Creates a dialog form to collect habit information from the user.
