@@ -72,8 +72,18 @@ async function fetchHabits() {
     }
 }
 
+/**
+ * @brief Create and render habit cards on the page.
+ * 
+ * Iterates through habits array and creates a card for each habit.
+ * Checks if habit has been completed today to set toggle button state
+ * 
+ * @param { Array } habits - Array of habits objects from the database
+ * @param { HTMLElement } container - The DOM element to append card to.
+ */
 function createHabitCards(habits, container) {
     habits.forEach(habit => {
+        // Check if habit has been completed today.
         const todayCheckIn = habit.checkIns.find(checkin => {
             const todayDate = new Date()
             todayDate.setHours(0, 0, 0, 0)
@@ -81,7 +91,7 @@ function createHabitCards(habits, container) {
             const completedDate = new Date(checkin.completedDate)
             completedDate.setHours(0, 0, 0, 0);
 
-            // If condition is true habit that already been completed.
+            // If condition is true habit already been completed.
             // Otherwise habit hasn't been completed yet. 
             return completedDate.toDateString() === todayDate.toDateString();
         });
