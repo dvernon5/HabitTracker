@@ -30,6 +30,7 @@ async function listHabits() {
 
     createHabitCards(habits, container);
     attachToggleListener();
+    attachRemoveListener();
 }
 
 function createSkeletonCard() {
@@ -105,6 +106,15 @@ function attachToggleListener() {
             const habitId = event.target.dataset.id;
             const checkinId = event.target.dataset.checkinId;
             toggleCheckIn(checkinId, habitId);
+        });
+    });
+}
+
+function attachRemoveListener() {
+    const removeBtn = document.querySelectorAll(".remove-btn");
+    removeBtn.forEach(btn => {
+        btn.addEventListener("click", event => {
+            removeHabit(event.target.dataset.id);
         });
     });
 }
