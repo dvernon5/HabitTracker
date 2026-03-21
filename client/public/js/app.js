@@ -33,6 +33,13 @@ async function listHabits() {
     attachRemoveListener();
 }
 
+/**
+ * @brief Create skeleton loading cards.
+ * 
+ * Returns a skeleton card HTML string used as a loading placeholder
+ * 
+ * @returns { string } HTML string of skeleton card
+ */
 function createSkeletonCard() {
     return `
         <div class="skeleton-card">
@@ -52,7 +59,6 @@ function createSkeletonCard() {
  * 
  * @return (Array) Array of habit objects or undefined if fetch failed.
  */
-
 async function fetchHabits() {
     try {
         const response = await fetch("/habits");
