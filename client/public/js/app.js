@@ -192,6 +192,16 @@ function buildForm(dialog) {
     return dialog;
 }
 
+/**
+ * @brief Attaches a submit event listener to the habit form.
+ * 
+ * Handles form submission by disabling the submit button during
+ * the request to prevent duplicate submissions.
+ * Calls createHabit to make the POST request to the server.
+ * 
+ * @param { HTMLFormElement } form - The form element to attach the listen to.
+ * @param {*} dialog - The dialog element to close after submission 
+ */
 function attachFormSubmitListener(form, dialog) {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
