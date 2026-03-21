@@ -115,6 +115,9 @@ function createHabitCards(habits, container) {
     });
 }
 
+/**
+ * @brief Attach an event listener to the toggle button.
+ */
 function attachToggleListener() {
     const toggleBtn = document.querySelectorAll(".toggle-checkin");
     toggleBtn.forEach(btn => {
