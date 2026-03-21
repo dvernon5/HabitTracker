@@ -29,6 +29,7 @@ async function listHabits() {
     }
 
     createHabitCards(habits, container);
+    attachToggleListener();
 }
 
 function createSkeletonCard() {
@@ -96,6 +97,18 @@ function createHabitCards(habits, container) {
         container.appendChild(habitCard);
     });
 }
+
+function attachToggleListener() {
+    const toggleBtn = document.querySelectorAll(".toggle-checkin");
+    toggleBtn.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            const habitId = event.target.dataset.id;
+            const checkinId = event.target.dataset.checkinId;
+            toggleCheckIn(checkinId, habitId);
+        });
+    });
+}
+
 
 /**
  * @brief Creates a dialog form to collect habit information from the user.
