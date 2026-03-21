@@ -129,7 +129,9 @@ function attachToggleListener() {
     });
 }
 
-
+/**
+ * @brief Attach an event listener to all remove buttons.
+ */
 function attachRemoveListener() {
     const removeBtn = document.querySelectorAll(".remove-btn");
     removeBtn.forEach(btn => {
