@@ -27,6 +27,8 @@ async function listHabits() {
         container.innerHTML = '<p class="empty-state">No Habits yet. Add one above!</p>';
         return;
     }
+
+    createHabitCards(habits, container);
 }
 
 function createSkeletonCard() {
