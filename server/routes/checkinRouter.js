@@ -28,7 +28,7 @@ checkinRouter.post("/", async (req, res) => {
         }
 
         // Create a new checkIn for completed date.
-        const newCheckIns = await prisma.checkIn.create({
+        await prisma.checkIn.create({
             data: { 
                 habitId: parseInt(habitId), 
                 completedDate: normalizedDate,
