@@ -145,6 +145,7 @@ let isLoading = false;
 async function toggleCheckIn(checkInId, habitId) {
     const toggleBtns = document.querySelectorAll(".toggle-checkin");
     disableToggleButton(toggleBtns, habitId);
+    disableRemoveButton(toggleBtns);
     try {
         let isDelete = false;
         if (!checkInId) {
@@ -203,6 +204,12 @@ function disableToggleButton(toggleBtns, activeHabitId) {
         if (btn.dataset.id === activeHabitId) {
             btn.textContent = "Saving...";
         }
+    });
+}
+
+function disableRemoveButton(removeBtns) {
+    removeBtns.forEach(btn => {
+        btn.disabled = true;
     });
 }
 
