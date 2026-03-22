@@ -142,10 +142,47 @@ function attachRemoveListener() {
 }
 
 let isLoading = false;
-function toggleCheckIn(checkInId, habitId) {
-
+async function toggleCheckIn(checkInId, habitId) {
     const toggleBtn = document.querySelectorAll(".toggle-checkin");
     disableToggleButton(toggleBtn, habitId);
+    try {
+        let isDelete = false;
+        if (!checkInId) {
+            await createCheckin(habitId);
+        } else {
+            // Function to delete checkin
+        }
+    } catch (err) {
+        const errorMessage = document.getElementById(".error-message");
+        errorMessage.textContent = "Unable to fulfill toggle request. Please try again";
+    }
+}
+
+/**
+ * @brief Makes a POST request to create a new check-in for today
+ * 
+ * Sends habitId and current date to the server to mark habit as complete.
+ * Displays an error message if the request fails.
+ * 
+ * @param { string } habitId - The ID of the habit to check in.
+ */
+async function createCheckin(habitId) {
+    try {
+        const response = await fetch("/checkins", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+                habitId: parseInt(habitId),
+                completedDate: new Date().toISOString()
+            })
+        });
+        if (!response.ok) throw Error("Failed to check in completed habit");
+        const updatedData = await response.json();
+        console.log(updatedData);
+    } catch (error) {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = "Unable to create check in. Please try again";
+    }
 }
 
 function disableToggleButton(toggleBtn, activeHabitId) {
