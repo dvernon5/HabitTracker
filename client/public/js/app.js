@@ -192,8 +192,8 @@ async function createCheckin(habitId) {
  * Shows "Saving..." only on the active button.
  * Stores original text for restoration after operation completes.
  * 
- * @param {NodeList} toggleBtns - All toggle buttons on the page
- * @param {*} activeHabitId  - The ID of the habit being toggled.
+ * @param { NodeList } toggleBtns - All toggle buttons on the page
+ * @param { string } activeHabitId  - The ID of the habit being toggled.
  */
 function disableToggleButton(toggleBtns, activeHabitId) {
     toggleBtns.forEach(btn => {
@@ -207,6 +207,13 @@ function disableToggleButton(toggleBtns, activeHabitId) {
     });
 }
 
+/**
+ * @brief Disables all remove buttons during async operations
+ * 
+ * Prevent habit deletion while a toggle operation is in progress.
+ * 
+ * @param {NodeList} removeBtns - All remove buttons on the page. 
+ */
 function disableRemoveButton(removeBtns) {
     removeBtns.forEach(btn => {
         btn.disabled = true;
