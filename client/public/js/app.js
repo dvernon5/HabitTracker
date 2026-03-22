@@ -143,8 +143,8 @@ function attachRemoveListener() {
 
 let isLoading = false;
 async function toggleCheckIn(checkInId, habitId) {
-    const toggleBtn = document.querySelectorAll(".toggle-checkin");
-    disableToggleButton(toggleBtn, habitId);
+    const toggleBtns = document.querySelectorAll(".toggle-checkin");
+    disableToggleButton(toggleBtns, habitId);
     try {
         let isDelete = false;
         if (!checkInId) {
@@ -194,8 +194,8 @@ async function createCheckin(habitId) {
  * @param {NodeList} toggleBtns - All toggle buttons on the page
  * @param {*} activeHabitId  - The ID of the habit being toggled.
  */
-function disableToggleButton(toggleBtn, activeHabitId) {
-    toggleBtn.forEach(btn => {
+function disableToggleButton(toggleBtns, activeHabitId) {
+    toggleBtns.forEach(btn => {
         btn.disabled = true;
         btn.dataset.originalText = btn.textContent;
 
