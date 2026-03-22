@@ -147,11 +147,10 @@ async function toggleCheckIn(checkInId, habitId) {
     disableToggleButton(toggleBtns, habitId);
     disableRemoveButton(toggleBtns);
     try {
-        let isDelete = false;
         if (!checkInId) {
             await createCheckin(habitId);
         } else {
-            // Function to delete checkin
+            await deleteCheckin(checkInId);
         }
     } catch (err) {
         const errorMessage = document.getElementById(".error-message");
@@ -178,11 +177,27 @@ async function createCheckin(habitId) {
             })
         });
         if (!response.ok) throw Error("Failed to check in completed habit");
-        const updatedData = await response.json();
-        console.log(updatedData);
+        const checkinData = await response.json();
+        console.log(checkinData);
+        return checkinData;
     } catch (error) {
         const errorMessage = document.getElementById('error-message');
         errorMessage.textContent = "Unable to create check in. Please try again";
+    }
+}
+
+async function deleteCheckin(checkinId) {
+    try {
+        const response = await fetch(`/checkins/${ checkinId }`, { 
+            method: "DELETE" 
+        });
+        if (!response.ok) throw Error("Bad request to delete latest checkin");
+        const deletedData = await response.json();
+        console(deletedData);
+        return deletedData;
+    } catch(err) {
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "Unable to delete latest checkin";
     }
 }
 
