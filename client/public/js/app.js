@@ -141,6 +141,24 @@ function attachRemoveListener() {
     });
 }
 
+let isLoading = false;
+function toggleCheckIn(checkInId, habitId) {
+
+    const toggleBtn = document.querySelectorAll(".toggle-checkin");
+    disableToggleButton(toggleBtn, habitId);
+}
+
+function disableToggleButton(toggleBtn, activeHabitId) {
+    toggleBtn.forEach(btn => {
+        btn.disabled = true;
+        btn.dataset.originalText = btn.textContent;
+
+        // Only changed the text value of the button that been clicked.
+        if (btn.dataset.id === activeHabitId) {
+            btn.textContent = "Saving...";
+        }
+    });
+}
 
 /**
  * @brief Creates a dialog form to collect habit information from the user.
