@@ -155,6 +155,8 @@ async function toggleCheckIn(checkInId, habitId) {
     } catch (err) {
         const errorMessage = document.getElementById(".error-message");
         errorMessage.textContent = "Unable to fulfill toggle request. Please try again";
+    } finally {
+        enableToggleButton(toggleBtns);
     }
 }
 
@@ -219,6 +221,20 @@ function disableToggleButton(toggleBtns, activeHabitId) {
         if (btn.dataset.id === activeHabitId) {
             btn.textContent = "Saving...";
         }
+    });
+}
+
+/**
+ * @brief Re-enables all toggle buttons after an async operation.
+ * 
+ * Restores original button text for each button.
+ * 
+ * @param {NodeList} toogleBtns - All toggle button on the page.
+ */
+function enableToggleButton(toogleBtns) {
+    toogleBtns.forEach(btn => {
+        btn.disabled = false;
+        btn.textContent = btn.dataset.originalText;
     });
 }
 
