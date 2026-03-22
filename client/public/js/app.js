@@ -144,8 +144,9 @@ function attachRemoveListener() {
 let isLoading = false;
 async function toggleCheckIn(checkInId, habitId) {
     const toggleBtns = document.querySelectorAll(".toggle-checkin");
+    const removeBtns = document.querySelectorAll(".remove-btn");
     disableToggleButton(toggleBtns, habitId);
-    disableRemoveButton(toggleBtns);
+    disableRemoveButton(removeBtns);
     try {
         if (!checkInId) {
             await createCheckin(habitId);
@@ -157,6 +158,7 @@ async function toggleCheckIn(checkInId, habitId) {
         errorMessage.textContent = "Unable to fulfill toggle request. Please try again";
     } finally {
         enableToggleButton(toggleBtns);
+        enablesRemoveButton(removeBtns);
     }
 }
 
@@ -229,7 +231,7 @@ function disableToggleButton(toggleBtns, activeHabitId) {
  * 
  * Restores original button text for each button.
  * 
- * @param {NodeList} toogleBtns - All toggle button on the page.
+ * @param { NodeList } toogleBtns - All toggle button on the page.
  */
 function enableToggleButton(toogleBtns) {
     toogleBtns.forEach(btn => {
@@ -243,11 +245,22 @@ function enableToggleButton(toogleBtns) {
  * 
  * Prevent habit deletion while a toggle operation is in progress.
  * 
- * @param {NodeList} removeBtns - All remove buttons on the page. 
+ * @param { NodeList } removeBtns - All remove buttons on the page. 
  */
 function disableRemoveButton(removeBtns) {
     removeBtns.forEach(btn => {
         btn.disabled = true;
+    });
+}
+
+/**
+ * @brief Re-enables all remove buttons after an async operation.
+ * 
+ * @param { NodeList } removeBtns - All remove buttons on the page.
+ */
+function enablesRemoveButton(removeBtns) {
+    removeBtns.forEach(btn => {
+        removeBtns.disabled = false;
     });
 }
 
