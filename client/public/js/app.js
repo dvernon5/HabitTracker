@@ -350,16 +350,27 @@ async function makeStreakPutRequest(habitId, streak, longestStreak) {
     }
 }
 
+/**
+ * @brief Makes a DELETE request to remove a habit from the database.
+ * 
+ * Disables all interactive buttons during the deletion process
+ * to prevent duplicate or conflicting requests.
+ * Re-renders the habit list after successful deletion.
+ * Displays an error message if the request fails.
+ * 
+ * @param { string } habitId  - The ID of the habit to delete
+ */
 async function removeHabit(habitId) {
     const toggleBtns = document.querySelectorAll(".toggle-checkin");
     const removeBtns = document.querySelectorAll(".remove-btn");
     const newHabitButton = document.querySelector(".trigger-modal");
 
-    disableToggleButton(toggleBtns, habitId);
+    disableToggleButton(toggleBtns, null);
     disableRemoveButton(removeBtns);
     disableNewHabitButton(newHabitButton);
+
     try {
-        const response = await fetch(`habits/${ habitId}`, {
+        const response = await fetch(`/habits/${ habitId }`, {
             method: "DELETE",
         });
         if (!response.ok) throw Error("Bad request to delete habit");
@@ -367,12 +378,11 @@ async function removeHabit(habitId) {
         console.log(deletedHabit);
         listHabits();
     } catch (err) {
-        const errorMessage = document.getElementById('error-message');
-        errorMessage.textContent = "Unable to delete habit";
+        document.getElementById('error-message').textContent = "Unable to delete habit. Please try again.";
     } finally {
         enableToggleButton(toggleBtns);
         enableRemoveButton(removeBtns);
-        enableNewHabitButton(newHabitBtn);
+        enableNewHabitButton(newHabitButton);
     }
 }
 
