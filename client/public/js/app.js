@@ -387,24 +387,6 @@ async function removeHabit(habitId) {
 }
 
 /**
- * @brief - Disable Add New Habit button during an async operation.
- * 
- * @param { ElementButton } newHabitButton - New Habit Button on app landing page.
- */
-function disableNewHabitButton(newHabitButton) {
-    newHabitButton.disabled = true;
-}
-
-/**
- * @brief - Enable Add New Habit button during an async operation.
- * 
- * @param { ElementButton } newHabitButton - New Habit Button on app landing page.
- */
-function enableNewHabitButton(newHabitButton) {
-    newHabitButton.disabled = false;
-}
-
-/**
  * @brief - Disable all toggle buttons during an async operation.
  * 
  * Shows "Saving..." only on the active button.
@@ -463,7 +445,23 @@ function enableRemoveButton(removeBtns) {
     });
 }
 
+/**
+ * @brief - Disable Add New Habit button during an async operation.
+ * 
+ * @param { ElementButton } newHabitButton - New Habit Button on app landing page.
+ */
+function disableNewHabitButton(newHabitButton) {
+    newHabitButton.disabled = true;
+}
 
+/**
+ * @brief - Enable Add New Habit button during an async operation.
+ * 
+ * @param { ElementButton } newHabitButton - New Habit Button on app landing page.
+ */
+function enableNewHabitButton(newHabitButton) {
+    newHabitButton.disabled = false;
+}
 
 /**
  * @brief Creates a dialog form to collect habit information from the user.
