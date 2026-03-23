@@ -16,3 +16,11 @@ header {
     margin-bottom: 10px;
 }
 
+header h1 {
+    font-size: 2em;
+    color: #2d2d2d;
+    letter-spacing: 1px;
+}
+
+
+
