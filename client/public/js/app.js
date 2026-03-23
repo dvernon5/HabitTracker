@@ -141,6 +141,17 @@ function attachRemoveListener() {
     });
 }
 
+/**
+ * @brief Change the completion state of habit for today
+ * 
+ * Checks if a check-in exists for today.
+ * If no check-in exists make a POST request to create one.
+ * If a check-in exists make a DELETE request to remove it.
+ * Recalculates streak after each toggle action.
+ * 
+ * @param {*} checkInId - The ID of today's check-in if it exists.
+ * @param {*} habitId - The ID of the habit being toggled.
+ */
 async function toggleCheckIn(checkInId, habitId) {
     const toggleBtns = document.querySelectorAll(".toggle-checkin");
     const removeBtns = document.querySelectorAll(".remove-btn");
