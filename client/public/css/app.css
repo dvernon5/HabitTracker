@@ -10,6 +10,7 @@ body {
     padding: 20px;
 }
 
+/* Habit Tracker App Headers */
 header {
     text-align: center;
     padding: 30px 20px 10px;
@@ -22,5 +23,28 @@ header h1 {
     letter-spacing: 1px;
 }
 
+/* New Habit Button Properties */
+.control {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
+.trigger-modal {
+    background-color: #22a070;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    color: rgb(242, 241, 241);
+    cursor: pointer;
+}
+
+.trigger-modal:hover {
+    background-color: #84cab0;
+}
+
+.trigger-modal:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
