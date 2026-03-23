@@ -76,5 +76,33 @@ header h1 {
     font-size: 1.1em;
 }
 
+.habit-card button {
+    margin-top: 12px;
+    padding: 10px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
+.card-button-control {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.toggle-checkin {
+    background-color: rgb(70, 164, 202);
+    color: rgb(242, 241, 241);
+}
+
+.toggle-checkin:hover {
+    background-color: rgb(162, 229, 255);
+    color: rgb(68, 68, 68);
+    text-shadow: 1px 1px 2px rgb(178, 178, 178);
+}
+
+.toggle-checkin:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
