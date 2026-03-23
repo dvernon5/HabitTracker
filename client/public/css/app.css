@@ -158,3 +158,18 @@ dialog label {
     color: #444444;
     font-weight: bold;
 }
+
+dialog input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+dialog input[type="text"]:focus {
+    outline: none;
+    border-color:#22a070;
+}
