@@ -146,13 +146,14 @@ async function toggleCheckIn(checkInId, habitId) {
     const removeBtns = document.querySelectorAll(".remove-btn");
     disableToggleButton(toggleBtns, habitId);
     disableRemoveButton(removeBtns);
+    let updatedData = null;
     try {
         let isDeleted = false;
         if (!checkInId) {
-            await createCheckin(habitId);
+            updatedData = await createCheckin(habitId);
         } else {
             isDeleted = true;
-            await deleteCheckin(checkInId);
+            updatedData = await deleteCheckin(checkInId);
         }
     } catch (err) {
         const errorMessage = document.getElementById(".error-message");
