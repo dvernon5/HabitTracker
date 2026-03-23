@@ -143,6 +143,7 @@ dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+/* Dialog Form Properties */
 dialog form {
     padding: 24px;
 }
@@ -174,6 +175,7 @@ dialog input[type="text"]:focus {
     border-color:#22a070;
 }
 
+/* Dialog Form Button Properties */
 .form-button-control {
     display: flex;
     justify-content: space-between;
@@ -194,6 +196,25 @@ dialog button[type="submit"]:hover {
 }
 
 dialog button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+dialog button[type="button"] {
+    background-color: #999;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+dialog button[type="button"]:hover {
+    background-color: #777;
+}
+
+dialog button[type="button"]:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
