@@ -151,3 +151,10 @@ dialog h2 {
     color: #2d2d2d;
     margin-bottom: 20px;
 }
+
+dialog label {
+    display: block;
+    margin-bottom: 16px;
+    color: #444444;
+    font-weight: bold;
+}
