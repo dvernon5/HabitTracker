@@ -182,6 +182,8 @@ async function toggleCheckIn(checkInId, habitId) {
  * Displays an error message if the request fails.
  * 
  * @param { string } habitId - The ID of the habit to check in.
+ * @return { Object } Updated habit object containing id, name, streak
+ *                    longestStreak, chechIns array.
  */
 async function createCheckin(habitId) {
     try {
@@ -203,6 +205,16 @@ async function createCheckin(habitId) {
     }
 }
 
+/**
+ * @brief Makes a DELETE request to remove an existing check-in
+ * 
+ * Removes today's check-in to mark habit as incomplete.
+ * Displays an error message if the request fails.
+ * 
+ * @param { string } checkinId - The ID of the check-in to delete
+ * @return { Object } Updated habit object containing id, name, streak
+ *                    longestStreak, chechIns array. 
+ */
 async function deleteCheckin(checkinId) {
     try {
         const response = await fetch(`/checkins/${ checkinId }`, { 
@@ -335,7 +347,7 @@ function buildForm(dialog) {
  * Calls createHabit to make the POST request to the server.
  * 
  * @param { HTMLFormElement } form - The form element to attach the listen to.
- * @param {*} dialog - The dialog element to close after submission 
+ * @param { HTMLDialogElement } dialog - The dialog element to close after submission 
  */
 function attachFormSubmitListener(form, dialog) {
     form.addEventListener("submit", async (event) => {
