@@ -47,6 +47,7 @@ header h1 {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
 /* Skeleton Habit Cards Properties */
 .skeleton {
     opacity: .7;
@@ -75,6 +76,13 @@ header h1 {
     width: 70px;
     border-radius: 4px;
     margin-bottom: 15px;
+}
+
+.skeleton-text {
+    height: 16px;
+    width: 40%;
+    border-radius: 4px;
+    margin-bottom: 20px;
 }
 
 .skeleton-btn {
