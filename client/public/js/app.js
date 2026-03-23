@@ -162,10 +162,10 @@ async function toggleCheckIn(checkInId, habitId) {
     disableNewHabitButton(newHabitButton);
 
     let updatedResponse = null;
+    
+    // Check to see if user is trying to create or delete a checkin
+    let isDelete = false; 
     try {
-        // Check to see if user is trying to create or delete a checkin
-        let isDelete = false; 
-
         // checkInId does not exist, create an entry.
         if (!checkInId) {
             updatedResponse = await createCheckin(habitId);
