@@ -173,3 +173,27 @@ dialog input[type="text"]:focus {
     outline: none;
     border-color:#22a070;
 }
+
+.form-button-control {
+    display: flex;
+    justify-content: space-between;
+}
+
+dialog button[type="submit"] {
+    background-color: #22a070;
+    color: rgb(242, 241, 241);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+dialog button[type="submit"]:hover {
+    background-color: #84cab0;
+}
+
+dialog button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
