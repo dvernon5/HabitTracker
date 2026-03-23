@@ -159,11 +159,11 @@ async function toggleCheckIn(checkInId, habitId) {
     disableRemoveButton(removeBtns);
     let updatedHabitData = null;
     try {
-        let isDeleted = false;
+        let isDelete = false;
         if (!checkInId) {
             updatedHabitData = await createCheckin(habitId);
         } else {
-            isDeleted = true;
+            isDelete = true;
             updatedHabitData = await deleteCheckin(checkInId);
         }
     } catch (err) {
@@ -173,6 +173,11 @@ async function toggleCheckIn(checkInId, habitId) {
         enableToggleButton(toggleBtns);
         enablesRemoveButton(removeBtns);
     }
+
+    await incrementStreak(updatedHabitData, isDelete);
+
+    // Re-render the habits list to reflect the toggle change.
+    listHabits();
 }
 
 /**
