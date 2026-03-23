@@ -155,23 +155,31 @@ function attachRemoveListener() {
 async function toggleCheckIn(checkInId, habitId) {
     const toggleBtns = document.querySelectorAll(".toggle-checkin");
     const removeBtns = document.querySelectorAll(".remove-btn");
+    const newHabitButton = document.querySelector(".trigger-modal");
+
     disableToggleButton(toggleBtns, habitId);
     disableRemoveButton(removeBtns);
-    let updatedHabitData = null;
+    disableNewHabitButton(newHabitButton);
+
+    let updatedResponse = null;
     try {
-        let isDelete = false;
+        // Check to see if user is trying to create or delete a checkin
+        let isDelete = false; 
+
+        // checkInId does not exist, create an entry.
         if (!checkInId) {
-            updatedHabitData = await createCheckin(habitId);
+            updatedResponse = await createCheckin(habitId);
         } else {
             isDelete = true;
-            updatedHabitData = await deleteCheckin(checkInId);
+            updatedResponse = await deleteCheckin(checkInId);
         }
     } catch (err) {
-        const errorMessage = document.getElementById(".error-message");
-        errorMessage.textContent = "Unable to fulfill toggle request. Please try again";
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = "Unable to fulfill toggle request. Please try again.";
     } finally {
         enableToggleButton(toggleBtns);
-        enablesRemoveButton(removeBtns);
+        enableRemoveButton(removeBtns);
+        enableNewHabitButton(newHabitButton);
     }
 
     await incrementStreak(updatedHabitData, isDelete);
@@ -342,6 +350,50 @@ async function makeStreakPutRequest(habitId, streak, longestStreak) {
     }
 }
 
+async function removeHabit(habitId) {
+    const toggleBtns = document.querySelectorAll(".toggle-checkin");
+    const removeBtns = document.querySelectorAll(".remove-btn");
+    const newHabitButton = document.querySelector(".trigger-modal");
+
+    disableToggleButton(toggleBtns, habitId);
+    disableRemoveButton(removeBtns);
+    disableNewHabitButton(newHabitButton);
+    try {
+        const response = await fetch(`habits/${ habitId}`, {
+            method: "DELETE",
+        });
+        if (!response.ok) throw Error("Bad request to delete habit");
+        const deletedHabit = await response.json();
+        console.log(deletedHabit);
+        listHabits();
+    } catch (err) {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = "Unable to delete habit";
+    } finally {
+        enableToggleButton(toggleBtns);
+        enableRemoveButton(removeBtns);
+        enableNewHabitButton(newHabitBtn);
+    }
+}
+
+/**
+ * @brief - Disable Add New Habit button during an async operation.
+ * 
+ * @param { ElementButton } newHabitButton - New Habit Button on app landing page.
+ */
+function disableNewHabitButton(newHabitButton) {
+    newHabitButton.disabled = true;
+}
+
+/**
+ * @brief - Enable Add New Habit button during an async operation.
+ * 
+ * @param { ElementButton } newHabitButton - New Habit Button on app landing page.
+ */
+function enableNewHabitButton(newHabitButton) {
+    newHabitButton.disabled = false;
+}
+
 /**
  * @brief - Disable all toggle buttons during an async operation.
  * 
@@ -395,11 +447,13 @@ function disableRemoveButton(removeBtns) {
  * 
  * @param { NodeList } removeBtns - All remove buttons on the page.
  */
-function enablesRemoveButton(removeBtns) {
+function enableRemoveButton(removeBtns) {
     removeBtns.forEach(btn => {
         removeBtns.disabled = false;
     });
 }
+
+
 
 /**
  * @brief Creates a dialog form to collect habit information from the user.
