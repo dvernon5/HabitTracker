@@ -70,6 +70,12 @@ header h1 {
     border-left: 4px solid #e0e0e0;
 }
 
+.skeleton-title {
+    height: 20px;
+    width: 70px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
 
 /* Habit Cards Properties */
 .habit-container {
