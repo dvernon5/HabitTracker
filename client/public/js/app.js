@@ -141,16 +141,17 @@ function attachRemoveListener() {
     });
 }
 
-let isLoading = false;
 async function toggleCheckIn(checkInId, habitId) {
     const toggleBtns = document.querySelectorAll(".toggle-checkin");
     const removeBtns = document.querySelectorAll(".remove-btn");
     disableToggleButton(toggleBtns, habitId);
     disableRemoveButton(removeBtns);
     try {
+        let isDeleted = false;
         if (!checkInId) {
             await createCheckin(habitId);
         } else {
+            isDeleted = true;
             await deleteCheckin(checkInId);
         }
     } catch (err) {
