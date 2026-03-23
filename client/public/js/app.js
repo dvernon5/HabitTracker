@@ -284,6 +284,35 @@ function calculateStreak(habit, startFromYesterday = false) {
 }
 
 /**
+ * @brief Makes a PUT request to update streak values in the datebase.
+ * 
+ * Sends both current streak and longest streak to the server.
+ * Longest streak only updates when current streak exceeds previous record.
+ * Displays an error message if the request fails.
+ * @param { number } habitId - The ID of the habit to update.
+ * @param { number } streak - The current consectutive streak value.
+ * @param { number } longestStreak - The longest streak ever achieved
+ */
+async function makeStreakPutRequest(habitId, streak, longestStreak) {
+    try {
+         const response = await fetch(`/habits/${ habitId }`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                streak: streak,
+                longestStreak: longestStreak,
+            })
+        });
+        if (!response.ok) throw Error("Bad request to update streak.");
+        const updatedStreak = await response.json();
+        console.log(updatedStreak);
+    } catch(err) {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = "Unable to update streak request.";
+    }
+}
+
+/**
  * @brief - Disable all toggle buttons during an async operation.
  * 
  * Shows "Saving..." only on the active button.
