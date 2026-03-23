@@ -157,14 +157,14 @@ async function toggleCheckIn(checkInId, habitId) {
     const removeBtns = document.querySelectorAll(".remove-btn");
     disableToggleButton(toggleBtns, habitId);
     disableRemoveButton(removeBtns);
-    let updatedData = null;
+    let updatedHabitData = null;
     try {
         let isDeleted = false;
         if (!checkInId) {
-            updatedData = await createCheckin(habitId);
+            updatedHabitData = await createCheckin(habitId);
         } else {
             isDeleted = true;
-            updatedData = await deleteCheckin(checkInId);
+            updatedHabitData = await deleteCheckin(checkInId);
         }
     } catch (err) {
         const errorMessage = document.getElementById(".error-message");
@@ -228,6 +228,59 @@ async function deleteCheckin(checkinId) {
         const errorMessage = document.getElementById("error-message");
         errorMessage.textContent = "Unable to delete latest checkin";
     }
+}
+
+/**
+ * @brief Calculates the current streak and longest streak for a habit.
+ * 
+ * Converts all check-in dates to date strings for comparison.
+ * Walks backwards from today counting consecutive completed days.
+ * Stops counting when a gap in consecutive dates is found.
+ * Only updates longestStreak if current streak exceeds it.
+ * longestStreak never decreases - it is a permanent record.
+ * 
+ * @param { Object } habit - The habit object containing checkIns array,
+ *                           streak, and longestStreak.
+ * @param { boolean } startFromYesterday - If true starts calculation for yesterday
+ *                                         instead of today. Used when unchecking a habit.
+ * @returns { Object } Object containing:
+ *                     - streak { number } The current consective streak.
+ *                     - longestStreak { number } The longest streak ever achieved.
+ */
+function calculateStreak(habit, startFromYesterday = false) {
+    // If checkIn is empty there's no dae to checkins to count.
+    if (habit.checkIns.length === 0) {
+        return { streak: 0, longestStreak: habit.longestStreak };
+    }
+
+    // Convert all check-in entries to a new Array.
+    const completedDates = habit.checkIns.map(checkin => {
+        return new Date(checkin.completedDate).toDateString();
+    });
+
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+
+    // If unchecking, start from Yesterday
+    if (startFromYesterday) {
+        todayDate.setDate(todayDate.getDate() - 1);
+    }
+
+    let streak = 0;
+
+    // Starting from today date work backward to calculate the streak.
+    while (true) {
+        const dateString = todayDate.toDateString();
+        if (completedDates.includes(dateString)) {
+            streak++;
+            todayDate = todayDate.setDate(todayDate.getDate() - 1);  // Get the previous day.
+        } else { 
+            break;
+        }
+    }
+    const longestStreak = streak > habit.longestStreak ? streak : habit.longestStreak;
+
+    return { streak, longestStreak };
 }
 
 /**
