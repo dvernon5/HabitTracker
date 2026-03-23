@@ -138,3 +138,7 @@ dialog {
     inset: 0;
     margin: auto;
 }
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
