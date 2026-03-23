@@ -231,6 +231,31 @@ async function deleteCheckin(checkinId) {
 }
 
 /**
+ * @brief Orchestrates the streak update process after a toggle action.
+ * 
+ * Retrieves the habit object from the updated response.
+ * Calculates the new streak using calculateStreak.
+ * Sends the updated streak values to the server via makeStreakPutRequest.
+ * Displays an error message if the process fails.
+ * 
+ * @param { Object } updatedHabitData - The response object containing the updated habit.
+ * @param { boolean } isDeleted - Flag indicating if the toggle was a deletion.
+ *                                True means start streak calculation from yesterday.
+ *                                False means start from today.
+ */
+async function incrementStreak(updatedResponse, isDelete) {
+    try {
+         // Get access to the habit object and properties
+        const habit = updatedResponse.habit;
+        const { streak, longestStreak } = calculateStreak(habit, isDelete);
+        await makePutRequest(habit.id, streak, longestStreak);
+    } catch (err) {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = "Unable to calculate streak. Please try again.";
+    }
+}
+
+/**
  * @brief Calculates the current streak and longest streak for a habit.
  * 
  * Converts all check-in dates to date strings for comparison.
@@ -492,7 +517,3 @@ newHabitBtn.addEventListener("click", async () => {
     }
     dialog.showModal();
 });
-
-
-
-
