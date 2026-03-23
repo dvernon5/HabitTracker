@@ -162,7 +162,7 @@ async function toggleCheckIn(checkInId, habitId) {
     disableNewHabitButton(newHabitButton);
 
     let updatedResponse = null;
-    
+
     // Check to see if user is trying to create or delete a checkin
     let isDelete = false; 
     try {
@@ -532,11 +532,15 @@ function attachFormSubmitListener(form, dialog) {
         submitBtn.disabled = true;
         submitBtn.textContent = "Adding...";
 
+        const cancelBtn = form.querySelector(".cancel-btn");
+        cancelBtn.disabled = true;
+
         const name = document.getElementById("name").value.trim();
         await createHabit(name, submitBtn, originalText);
 
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
+        cancelBtn.disabled = false;
     });
 }
 
