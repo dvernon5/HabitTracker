@@ -1,7 +1,22 @@
-const { Router } = require("express");
-const authRouter = Router();
+const express = require("express");
+const authRouter = express.Router();
+const { requireAuth } = require("express-openid-connect");
 
 // Landing page - no auth required.
 authRouter.get("/", (req, res) => {
     res.sendFile("pages/index.html", {root: "../client/public" });
+});
+
+// Custom login route
+authRouter.get('/login', async (req, res) => {
+    try {
+        res.oidc.login({
+            returnTo: '/app',
+            authorizationParams: {
+                redirect_uri: 'http://localhost:3000/callback',
+            },
+        });
+    } catch(err) {
+        res.status(500).json({ message: "Login failed", error: err.message });
+    }
 });
