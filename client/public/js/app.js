@@ -536,7 +536,7 @@ function attachFormSubmitListener(form, dialog) {
         cancelBtn.disabled = true;
 
         const name = document.getElementById("name").value.trim();
-        await createHabit(name, submitBtn, originalText);
+        await createHabit(name, form, dialog);
 
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
@@ -588,3 +588,6 @@ newHabitBtn.addEventListener("click", async () => {
     }
     dialog.showModal();
 });
+
+// Load List onto Page
+document.addEventListener("DOMContentLoaded", listHabits);
