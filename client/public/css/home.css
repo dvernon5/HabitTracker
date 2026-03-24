@@ -57,3 +57,7 @@ body {
     border-radius: 8px;
     font-size: 18px;
 }
+
+.login-btn {
+    background-color: #84cab0;
+}
