@@ -1,6 +1,6 @@
 const express = require("express");
 const authRouter = express.Router();
-const { requireAuth } = require("express-openid-connect");
+const { requiresAuth } = require("express-openid-connect");
 
 // Landing page - no auth required.
 authRouter.get("/", (req, res) => {
@@ -44,7 +44,7 @@ authRouter.post("/callback", express.urlencoded({ extended: false }), async (req
 });
 
 // Habit Tracker page - auth required.
-authRouter.get("/app", requireAuth(), async (req, res) => {
+authRouter.get("/app", requiresAuth(), async (req, res) => {
     const prisma = req.app.locals.prisma;
     try {
         // Create user if they don't exist yet
