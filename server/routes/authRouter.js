@@ -4,7 +4,7 @@ const { requireAuth } = require("express-openid-connect");
 
 // Landing page - no auth required.
 authRouter.get("/", (req, res) => {
-    res.sendFile("pages/index.html", {root: "../client/public" });
+    res.sendFile("pages/index.html", {root: "../../client/public" });
 });
 
 // Custom login route
@@ -40,5 +40,21 @@ authRouter.post("/callback", express.urlencoded({ extended: false }), async (req
         });
     } catch(err) {
         res.status(500).json({ message: "Authentication failed", error: err.message });
+    }
+});
+
+// Habit Tracker page - auth required.
+authRouter.get("/app", requireAuth(), async (req, res) => {
+    const prisma = req.app.locals.prisma;
+    try {
+        // Create user if they don't exist yet
+        await prisma.user.upsert({
+            where: { id: req.userId },
+            update: {},
+            create: { id: req.userId },
+        });
+        res.sendFile("app.html", { root: "../../client/public/pages" });
+    } catch(err) {
+        res.status(500).json({ message: "Unable to create user session" });
     }
 });
