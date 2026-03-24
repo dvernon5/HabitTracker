@@ -35,6 +35,14 @@ const authConfig = {
 // Apply the auth middleware.
 app.use(auth(authConfig));
 
+// Attach userId to every request
+app.use((req, res, next) => {
+    if (req.oidc.isAuthenticated()) {
+        req.userId = req.oidc.user.sub;
+    }
+    next();
+})
+
 const habitRouter = require("./routes/habitRouter");
 const checkinRouter = require("./routes/checkinRouter");
 app.use("/habits", habitRouter);
