@@ -22,7 +22,10 @@ habitRouter.post("/", async (req, res) => {
     }
     try {
         const newHabits = await prisma.habit.create({
-            data: { name: name },
+            data: { 
+                name: name,
+                userId: req.userId, // attach habit to this user
+            },
         });
         res.status(201).json(newHabits);
     } catch (err) {
