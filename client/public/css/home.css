@@ -46,3 +46,14 @@ body {
     color: #666666;
     line-height: 1.6;
 }
+
+/* Login Button */
+.login-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: #22a070;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+}
