@@ -93,7 +93,7 @@ authRouter.get("/profile", async (req, res) => {
         <h3>Full User Object</h3>
         <pre>${JSON.stringify(user, null, 2)}</pre>
         <nav>
-          <a href="/app.js">Habit Tracker</a> | <a href="/logout">Logout</a>
+          <a href="/app">Habit Tracker</a> | <a href="/logout">Logout</a>
         </nav>
       </body>
     </html>
