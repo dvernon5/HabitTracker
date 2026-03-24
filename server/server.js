@@ -54,8 +54,11 @@ app.use(["/habits", "/checkins", (req, res, next) => {
 
 const habitRouter = require("./routes/habitRouter");
 const checkinRouter = require("./routes/checkinRouter");
+const authRouter = require("./routes/authRouter");
+app.use("/", authRouter);
 app.use("/habits", habitRouter);
 app.use("/checkins", checkinRouter);
+
 
 // Start server
 const PORT = process.env.PORT || 8080;
