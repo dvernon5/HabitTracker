@@ -10,6 +10,22 @@ body {
     padding: 20px;
 }
 
+/* Logout button */
+nav {
+    display: flex;
+    justify-content: end;
+}
+
+nav a {
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.997)
+}
+
+nav a:hover {
+    color: rgb(0, 0, 255);
+}
+
 /* Habit Tracker App Headers */
 header {
     text-align: center;
@@ -270,6 +286,8 @@ dialog button[type="button"]:disabled {
     color: #999999;
     padding: 40px;
     font-size: 22px;
+    grid-column: 1 / -1;  /* spans all grid columns */
+    width: 100%;
 }
 
 /* When there is an error property */
