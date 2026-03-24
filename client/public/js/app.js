@@ -96,7 +96,7 @@ function createHabitCards(habits, container) {
             return completedDate.toDateString() === todayDate.toDateString();
         });
         const habitCard = document.createElement("div");
-        habitCard.addClassList.add("habit-card");
+        habitCard.classList.add("habit-card");
         habitCard.setAttribute("data-id", habit.id);
         habitCard.innerHTML = `
             <h3>${ habit.name }</h3>
@@ -161,17 +161,17 @@ async function toggleCheckIn(checkInId, habitId) {
     disableRemoveButton(removeBtns);
     disableNewHabitButton(newHabitButton);
 
-    let updatedResponse = null;
+    let updatedHabitData = null;
 
     // Check to see if user is trying to create or delete a checkin
     let isDelete = false; 
     try {
         // checkInId does not exist, create an entry.
         if (!checkInId) {
-            updatedResponse = await createCheckin(habitId);
+            updatedHabitData = await createCheckin(habitId);
         } else {
             isDelete = true;
-            updatedResponse = await deleteCheckin(checkInId);
+            updatedHabitData = await deleteCheckin(checkInId);
         }
     } catch (err) {
         const errorMessage = document.getElementById('error-message');
@@ -256,10 +256,10 @@ async function deleteCheckin(checkinId) {
  *                                True means start streak calculation from yesterday.
  *                                False means start from today.
  */
-async function incrementStreak(updatedResponse, isDelete) {
+async function incrementStreak(updatedHabitData, isDelete) {
     try {
          // Get access to the habit object and properties
-        const habit = updatedResponse.habit;
+        const habit = updatedHabitData.habit;
         const { streak, longestStreak } = calculateStreak(habit, isDelete);
         await makeStreakPutRequest(habit.id, streak, longestStreak);
     } catch (err) {
