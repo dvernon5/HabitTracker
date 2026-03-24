@@ -11,7 +11,7 @@ app.locals.prisma = prisma;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("client/public"));
+app.use(express.static("../client/public"));
 
 const habitRouter = require("./routes/habitRouter");
 const checkinRouter = require("./routes/checkinRouter");
