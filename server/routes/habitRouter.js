@@ -74,7 +74,10 @@ habitRouter.delete("/:id", async (req, res) => {
     }
     try {
         const removeHabit = await prisma.habit.delete({
-            where: { id: habitId },
+            where: { 
+                id: habitId,
+                userId: req.userId,  // Verify habit belongs to this user
+            },
         });
         res.status(200).json({ message: "Habit successfully deleted", habit: removeHabit });
     } catch (err) {
