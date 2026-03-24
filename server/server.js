@@ -41,7 +41,16 @@ app.use((req, res, next) => {
         req.userId = req.oidc.user.sub;
     }
     next();
-})
+});
+
+// Protect all /habits and /checkins routes
+// User need to have authorization access/rights in order to use services.
+app.use(["/habits", "/checkins", (req, res, next) => {
+    if (!req.userId) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+    next();
+}]);
 
 const habitRouter = require("./routes/habitRouter");
 const checkinRouter = require("./routes/checkinRouter");
