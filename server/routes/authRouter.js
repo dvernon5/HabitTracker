@@ -58,3 +58,14 @@ authRouter.get("/app", requireAuth(), async (req, res) => {
         res.status(500).json({ message: "Unable to create user session" });
     }
 });
+
+// Logout route
+authRouter.get("/logout", async (req, res) => {
+    try {
+        res.oidc.logout({ returnTo: process.env.BASE_URL });
+    } catch (err) {
+        res.status(500).json({ message: "Logout failed", error: err.message });
+    }
+});
+
+module.exports = authRouter;
