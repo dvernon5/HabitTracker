@@ -11,6 +11,15 @@ checkinRouter.post("/", async (req, res) => {
         return res.status(400).json({ message: "Date cannot be found" });
     }
     try {
+       // Verify habit belongs to this user before creating checkin
+        const habit = await prisma.habit.findUnique({
+            where: {
+                id: parseInt(habitId),
+                userId: req.userId,
+            }
+        });
+        if (!habit) return res.status(403).json({ message: "Unauthorized" });
+
         // Normalize date to noon local time to avoid timezone boundary issues
         const date = new Date(completedDate);
         const normalizedDate = new Date(
