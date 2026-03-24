@@ -60,6 +60,15 @@ checkinRouter.delete("/:id", async (req, res) => {
     const habitId = parseInt(req.params.id);
     if (!habitId) return res.status(400).json({ message: "Index does not exist" });
     try {
+         // Verify checkin belongs to this user's habit before deleting
+        const checkIn = await prisma.checkIn.findUnique({
+            where: { id: habitId },
+            include: { habit: true },
+        });
+        if (!checkIn || checkIn.habit.userId !== req.userId) {
+            return res.status(403).json({ message: "Unauthorized" });
+        }
+
         // Remove today completed checkIn
         const removeCheckIn = await prisma.checkIn.delete({
             where: { id: habitId },
