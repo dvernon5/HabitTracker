@@ -17,3 +17,18 @@ body {
     min-height: 100vh;
     padding: 20px;
 }
+
+/* Landing Content */
+.landing-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    max-width: 480px;
+    width: 90%;
+}
