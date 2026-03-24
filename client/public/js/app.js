@@ -286,7 +286,7 @@ async function incrementStreak(updatedResponse, isDelete) {
  *                     - longestStreak { number } The longest streak ever achieved.
  */
 function calculateStreak(habit, startFromYesterday = false) {
-    // If checkIn is empty there's no dae to checkins to count.
+    // If checkIn is empty there's no date to calculate.
     if (habit.checkIns.length === 0) {
         return { streak: 0, longestStreak: habit.longestStreak };
     }
