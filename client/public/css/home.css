@@ -39,3 +39,10 @@ body {
     color: #2d2d2d;
     letter-spacing: 1px;
 }
+
+/* Description */
+.landing-description {
+    font-size: 1.1em;
+    color: #666666;
+    line-height: 1.6;
+}
