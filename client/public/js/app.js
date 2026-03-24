@@ -296,7 +296,7 @@ function calculateStreak(habit, startFromYesterday = false) {
         return new Date(checkin.completedDate).toDateString();
     });
 
-    const todayDate = new Date();
+    let todayDate = new Date();
     todayDate.setHours(0, 0, 0, 0);
 
     // If unchecking, start from Yesterday
