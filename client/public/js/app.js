@@ -181,7 +181,7 @@ async function toggleCheckIn(checkInId, habitId) {
         enableRemoveButton(removeBtns);
         enableNewHabitButton(newHabitButton);
     }
-
+    console.log("Updated Habit Data = ", updatedHabitData);
     await incrementStreak(updatedHabitData, isDelete);
 
     // Re-render the habits list to reflect the toggle change.
@@ -251,12 +251,13 @@ async function deleteCheckin(checkinId) {
  * Sends the updated streak values to the server via makeStreakPutRequest.
  * Displays an error message if the process fails.
  * 
- * @param { Object } updatedResponse - The response object containing the updated habit.
+ * @param { Object } updatedHabitData - The response object containing the updated habit.
  * @param { boolean } isDeleted - Flag indicating if the toggle was a deletion.
  *                                True means start streak calculation from yesterday.
  *                                False means start from today.
  */
-async function incrementStreak(updatedHabitData, isDelete) {
+async function incrementStreak(updatedHabitData, isDelete = false) {
+    console.log("Calling increment streak");
     try {
          // Get access to the habit object and properties
         const habit = updatedHabitData.habit;
@@ -311,7 +312,7 @@ function calculateStreak(habit, startFromYesterday = false) {
         const dateString = todayDate.toDateString();
         if (completedDates.includes(dateString)) {
             streak++;
-            todayDate = todayDate.setDate(todayDate.getDate() - 1);  // Get the previous day.
+            todayDate.setDate(todayDate.getDate() - 1);  // Get the previous day.
         } else { 
             break;
         }
