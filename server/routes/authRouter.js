@@ -13,7 +13,7 @@ authRouter.get("/login", async (req, res) => {
         res.oidc.login({
             returnTo: '/app',
             authorizationParams: {
-                redirect_uri: `${process.env.BASE_URL}/callback`,
+                redirect_uri: `${ process.env.BASE_URL }/callback`,
             },
         });
     } catch(err) {
@@ -25,7 +25,7 @@ authRouter.get("/login", async (req, res) => {
 authRouter.get("/callback", async (req, res) => {
     try {
         await res.oidc.callback({
-            redirectUri: "http://localhost:3000/callback",
+            redirectUri: `${ process.env.BASE_URL }/callback`,
         });
     } catch (err) {
         res.status(500).json({ message: "Authentication failed", error: err.message });
@@ -36,7 +36,7 @@ authRouter.get("/callback", async (req, res) => {
 authRouter.post("/callback", express.urlencoded({ extended: false }), async (req, res) => {
     try {
         await res.oidc.callback({
-            redirectUri: 'http://localhost:3000/callback',
+            redirectUri: `${ process.env.BASE_URL }/callback`,
         });
     } catch(err) {
         res.status(500).json({ message: "Authentication failed", error: err.message });
