@@ -68,4 +68,36 @@ authRouter.get("/logout", async (req, res) => {
     }
 });
 
+authRouter.get("/profile", async (req, res) => {
+   const user = req.oidc.user;
+
+    res.send(`
+    <html>
+      <head>
+        <title>Profile - Auth0 Express</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 2rem; max-width: 600px; margin: 0 auto; }
+          a { color: #0066cc; text-decoration: none; }
+          img { border-radius: 50%; }
+          pre { background: #f4f4f4; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+          .card { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+        </style>
+      </head>
+      <body>
+        <h1>User Profile</h1>
+        <div class="card">
+          ${user.picture ? `<img src="${user.picture}" alt="Profile" width="80" />` : ''}
+          <h2>${user.name || user.nickname || 'User'}</h2>
+          <p><strong>Email:</strong> ${user.email || 'N/A'}</p>
+        </div>
+        <h3>Full User Object</h3>
+        <pre>${JSON.stringify(user, null, 2)}</pre>
+        <nav>
+          <a href="/app.js">Habit Tracker</a> | <a href="/logout">Logout</a>
+        </nav>
+      </body>
+    </html>
+  `);
+});
+
 module.exports = authRouter;
