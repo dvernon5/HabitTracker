@@ -13,6 +13,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("../client/public"));
 
+// Auth0 configuration
+const authConfig = {
+    authRequired: false,    // Not every page requires login
+    auth0Logout: true,      // Use Auth0 logout endpoint
+    secret: process.env.SECRET,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    clientSecret: process.env.CLIENT_SECRET,  // Required for code flow
+    authorizationParams: {
+        response_type: "code",  // Client is expecting to recieve an authorization code
+    },
+    routes: {
+        login: false,     // Override default login route
+        callback: false,  // Override default callback route  
+        postLogoutRedirect: '/',
+    }
+};
+
+// Apply the auth middleware.
+app.use(auth(authConfig));
+
 const habitRouter = require("./routes/habitRouter");
 const checkinRouter = require("./routes/checkinRouter");
 app.use("/habits", habitRouter);
