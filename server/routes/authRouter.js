@@ -13,7 +13,7 @@ authRouter.get("/login", async (req, res) => {
         res.oidc.login({
             returnTo: '/app',
             authorizationParams: {
-                redirect_uri: 'http://localhost:3000/callback',
+                redirect_uri: `${process.env.BASE_URL}/callback`,
             },
         });
     } catch(err) {
