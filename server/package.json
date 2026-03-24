@@ -16,7 +16,8 @@
     "@prisma/client": "^6.19.2",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "express-openid-connect": "^2.19.4"
+    "express-openid-connect": "^2.19.4",
+    "pg": "^8.20.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14",
