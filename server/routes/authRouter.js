@@ -4,7 +4,7 @@ const { requiresAuth } = require("express-openid-connect");
 
 // Landing page - no auth required.
 authRouter.get("/", (req, res) => {
-    res.sendFile("pages/index.html", {root: "../../client/public" });
+    res.sendFile("pages/index.html", {root: "../client/public" });
 });
 
 // Custom login route
@@ -53,7 +53,7 @@ authRouter.get("/app", requiresAuth(), async (req, res) => {
             update: {},
             create: { id: req.userId },
         });
-        res.sendFile("app.html", { root: "../../client/public/pages" });
+        res.sendFile("pages/app.html", { root: "../client/public" });
     } catch(err) {
         res.status(500).json({ message: "Unable to create user session" });
     }
