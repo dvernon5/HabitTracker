@@ -5,6 +5,7 @@ habitRouter.get("/", async (req, res) => {
     const prisma = req.app.locals.prisma;
     try {
         const habits = await prisma.habit.findMany({
+            where: { userId: req.userId }, // only get this user's habits
             include: { checkIns: true, },
         });
         res.status(200).json(habits);
