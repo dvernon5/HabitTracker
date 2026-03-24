@@ -50,7 +50,10 @@ habitRouter.put("/:id", async (req, res) => {
     }
     try {
         const updateStreak = await prisma.habit.update({
-            where: { id: habitId, },
+            where: { 
+                id: habitId, 
+                userId: req.userId,  // verify habits belongs to this user.
+            },
             data: { 
                 streak: streak, 
                 longestStreak: longestStreak,
