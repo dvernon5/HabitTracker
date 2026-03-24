@@ -173,6 +173,11 @@ async function toggleCheckIn(checkInId, habitId) {
             isDelete = true;
             updatedHabitData = await deleteCheckin(checkInId);
         }
+
+        await incrementStreak(updatedHabitData, isDelete);
+
+        // Re-render the habits list to reflect the toggle change.
+        listHabits();
     } catch (err) {
         const errorMessage = document.getElementById('error-message');
         errorMessage.textContent = "Unable to fulfill toggle request. Please try again.";
@@ -181,11 +186,6 @@ async function toggleCheckIn(checkInId, habitId) {
         enableRemoveButton(removeBtns);
         enableNewHabitButton(newHabitButton);
     }
-    console.log("Updated Habit Data = ", updatedHabitData);
-    await incrementStreak(updatedHabitData, isDelete);
-
-    // Re-render the habits list to reflect the toggle change.
-    listHabits();
 }
 
 /**
@@ -235,7 +235,7 @@ async function deleteCheckin(checkinId) {
         });
         if (!response.ok) throw Error("Bad request to delete latest checkin");
         const deletedData = await response.json();
-        console(deletedData);
+        console.log(deletedData);
         return deletedData;
     } catch(err) {
         const errorMessage = document.getElementById("error-message");
