@@ -31,7 +31,7 @@ checkinRouter.post("/", async (req, res) => {
 
         // Guard against future dates on the server level. 
         const todayDate = new Date();
-        todayDate.setHours(23, 59, 59, 999); // End of day
+        todayDate.setUTCHours(23, 59, 59, 999); // End of day
         if (date > todayDate) {
             return res.status(400).json({ message: "Cannot create a check in for a future date" });
         }
