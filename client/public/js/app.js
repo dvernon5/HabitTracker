@@ -85,15 +85,14 @@ function createHabitCards(habits, container) {
     habits.forEach(habit => {
         // Check if habit has been completed today.
         const todayCheckIn = habit.checkIns.find(checkin => {
-            const todayDate = new Date()
-            todayDate.setHours(0, 0, 0, 0)
-
+            const now = new Date()
             const completedDate = new Date(checkin.completedDate)
-            completedDate.setHours(0, 0, 0, 0);
 
             // If condition is true habit already been completed.
             // Otherwise habit hasn't been completed yet. 
-            return completedDate.toDateString() === todayDate.toDateString();
+            return  completedDate.getUTCFullYear() === now.getUTCFullYear() &&
+                    completedDate.getUTCMonth() === now.getUTCMonth() &&
+                    completedDate.getUTCDate() === now.getUTCDate();
         });
         const habitCard = document.createElement("div");
         habitCard.classList.add("habit-card");
@@ -296,26 +295,37 @@ function calculateStreak(habit, startFromYesterday = false) {
     const completedDates = habit.checkIns.map(checkin => {
         const date = new Date(checkin.completedDate);
 
-        // Transform to UTC date strong for consistency
+        // Transform to UTC date string for consistency
         return `${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}`;
     });
 
     let todayDate = new Date();
-    todayDate.setHours(0, 0, 0, 0);
+    let utcYear = todayDate.getUTCFullYear();
+    let utcMonth = todayDate.getUTCMonth();
+    let utcDate = todayDate.getUTCDate();
 
     // If unchecking, start from Yesterday
     if (startFromYesterday) {
-        todayDate.setDate(todayDate.getDate() - 1);
+        // Go back one day in UTC
+        const yesterday = new Date(Date.UTC(utcYear, utcMonth, utcDate - 1));
+        utcYear = yesterday.getUTCFullYear();
+        utcMonth = yesterday.getUTCMonth();
+        utcDate = yesterday.getUTCDate();
     }
 
     let streak = 0;
 
     // Starting from today date work backward to calculate the streak.
     while (true) {
-        const dateString = `${todayDate.getUTCFullYear()}-${todayDate.getUTCMonth()}-${todayDate.getUTCDate()}`;
+        const dateString = `${utcYear}-${String(utcMonth + 1).padStart(2, '0')}-${String(utcDate).padStart(2, '0')}`;
         if (completedDates.includes(dateString)) {
             streak++;
-            todayDate.setDate(todayDate.getDate() - 1);  // Get the previous day.
+
+            // Go back one day in UTC
+            const prevDay = new Date(Date.UTC(utcYear, utcMonth, utcDate - 1));
+            utcYear = prevDay.getUTCFullYear();
+            utcMonth = prevDay.getUTCMonth();
+            utcDate = prevDay.getUTCDate();
         } else { 
             break;
         }
