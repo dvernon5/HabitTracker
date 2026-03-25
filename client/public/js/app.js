@@ -294,7 +294,10 @@ function calculateStreak(habit, startFromYesterday = false) {
 
     // Convert all check-in entries to a new Array.
     const completedDates = habit.checkIns.map(checkin => {
-        return new Date(checkin.completedDate).toDateString();
+        const date = new Date(checkin.completedDate);
+
+        // Transform to UTC date strong for consistency
+        return `${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}`;
     });
 
     let todayDate = new Date();
@@ -309,7 +312,7 @@ function calculateStreak(habit, startFromYesterday = false) {
 
     // Starting from today date work backward to calculate the streak.
     while (true) {
-        const dateString = todayDate.toDateString();
+        const dateString = `${todayDate.getUTCFullYear()}-${todayDate.getUTCMonth()}-${todayDate.getUTCDate()}`;
         if (completedDates.includes(dateString)) {
             streak++;
             todayDate.setDate(todayDate.getDate() - 1);  // Get the previous day.
