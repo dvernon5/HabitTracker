@@ -20,14 +20,14 @@ checkinRouter.post("/", async (req, res) => {
         });
         if (!habit) return res.status(403).json({ message: "Unauthorized" });
 
-        // Normalize date to noon local time to avoid timezone boundary issues
+        // Utilize UTC method consistently everywhere
         const date = new Date(completedDate);
-        const normalizedDate = new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate(),
+        const normalizedDate = new Date(Date.UTC(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
             12, 0, 0
-        );
+        ));
 
         // Guard against future dates on the server level. 
         const todayDate = new Date();
