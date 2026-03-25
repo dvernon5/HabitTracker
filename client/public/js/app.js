@@ -296,7 +296,7 @@ function calculateStreak(habit, startFromYesterday = false) {
         const date = new Date(checkin.completedDate);
 
         // Transform to UTC date string for consistency
-        return `${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDate()}`;
+        return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
     });
 
     let todayDate = new Date();
