@@ -593,6 +593,14 @@ async function createHabit(name, form, dialog) {
     } 
 }
 
+// Initialize How It Works dialog
+const howItWorksBtn = document.getElementById("how-it-works-btn");
+const instructionsDialog = document.getElementById("instructions-dialog");
+howItWorksBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    instructionsDialog.showModal();
+});
+
 // Initialize New Habit button and attach click event to open dialog
 const newHabitBtn = document.querySelector(".trigger-modal");
 let dialog = null;
