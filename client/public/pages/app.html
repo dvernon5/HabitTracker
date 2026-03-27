@@ -8,15 +8,36 @@
 </head>
 <body>
     <nav>
+        <a href="#" id="how-it-works-btn">How It Works</a>
         <a href="/logout">Logout</a>
     </nav>
+    <dialog id="instructions-dialog">
+        <h2>How It Works</h2>
+        <p>
+            Click <strong>Done Today</strong> to mark a habit complete.
+            Your streak and longest streak will increment and the button
+            switches to <strong>Checked In</strong>.
+        </p>
+        <p>
+            Click <strong>Checked In</strong> to undo today's completion.
+            Your current streak returns to yesterday's value but your longest 
+            streak never decreases.
+        </p>
+        <p>
+            At midnight your progress locks in permantly and a new day begins with 
+            fresh buttons. 
+        </p>
+        <form method="dialog">
+            <button type="submit">Got It</button>
+        </form>
+    </dialog>
     <header>
         <h1>Habit Tracker</h1>
     </header>
     <div class="control">
         <button class="trigger-modal">New Habit</button>
     </div>
-    <div id="error-message" class="error-state"></div>
+    <span id="error-message" class="error-state"></span>
     <div id="habit-container"></div>
     <script src="../js/app.js" type="module" defer></script>
 </body>
