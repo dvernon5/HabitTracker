@@ -13,7 +13,7 @@ body {
 /* Logout button */
 nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 nav a {
@@ -24,6 +24,24 @@ nav a {
 
 nav a:hover {
     color: rgb(0, 0, 255);
+}
+
+#instructions-dialog {
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+    width: 90%;
+    inset: 0;
+    margin: auto;
+    padding: 25px;
+    text-align: center;
+}
+
+#instructions-dialog p {
+    text-align: left; /* Align the text evenly */
+    color: #2d2d2d;
+    line-height: 2;
 }
 
 /* Habit Tracker App Headers */
