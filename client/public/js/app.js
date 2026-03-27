@@ -105,7 +105,7 @@ function createHabitCards(habits, container) {
                 <button class="toggle-checkin"
                         data-id="${ habit.id }"
                         data-checkin-id="${ todayCheckIn ? todayCheckIn.id : '' }">
-                    ${ todayCheckIn ? "Checked In" : "Done Today" }
+                    ${ todayCheckIn ? "Completed" : "Mark as Done" }
                 </button>
                 <button class="remove-btn" data-id="${ habit.id }">Remove Habit</button>
             </div>
